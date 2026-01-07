@@ -25,7 +25,10 @@ namespace Gameplay.Minigames.Skillbar
             float t = Mathf.Clamp01(playerScore / 100f);
             speed = Mathf.Lerp(baseSpeed, maxSpeed, t);
 
+            Canvas.ForceUpdateCanvases();
             CalculateLimits();
+            
+            selector.anchoredPosition = new Vector2(selector.anchoredPosition.x, minY);
         }
 
         private void CalculateLimits()
@@ -39,6 +42,7 @@ namespace Gameplay.Minigames.Skillbar
 
         public void StartMoving()
         {
+            direction = 1f;
             isMoving = true;
         }
 
