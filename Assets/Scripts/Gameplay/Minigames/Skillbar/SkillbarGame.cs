@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System;
 
 namespace Gameplay.Minigames.Skillbar
@@ -8,10 +7,17 @@ namespace Gameplay.Minigames.Skillbar
     {
         public event Action<SkillbarResult> OnSkillbarFinished;
 
+        [Header("References")]
         [SerializeField] private SkillbarSelector selector;
         [SerializeField] private SkillbarEvaluator evaluator;
+        [SerializeField] private SkillbarInputSlider inputSlider;
 
         private bool isActive;
+
+        private void Awake()
+        {
+            inputSlider.OnSliderCompleted += FinishSkillbar;
+        }
 
         public void StartGame(int playerScore)
         {
@@ -20,25 +26,19 @@ namespace Gameplay.Minigames.Skillbar
 
             selector.Setup(playerScore);
             evaluator.SetupPerfectZone(playerScore);
+
             selector.StartMoving();
-        }
-
-        private void Update()
-        {
-            if (!isActive) return;
-
-            if (Mouse.current.leftButton.wasPressedThisFrame ||
-                (Touchscreen.current != null &&
-                 Touchscreen.current.primaryTouch.press.wasPressedThisFrame))
-            {
-                FinishSkillbar();
-            }
+            inputSlider.Activate();
         }
 
         private void FinishSkillbar()
         {
+            if (!isActive) return;
+
             isActive = false;
+
             selector.StopMoving();
+            inputSlider.Deactivate();
 
             SkillbarResult result = evaluator.Evaluate(selector.CurrentY);
             OnSkillbarFinished?.Invoke(result);
