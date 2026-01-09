@@ -27,8 +27,13 @@ namespace Gameplay.Minigames.Skillbar
 
         public void SetupPerfectZone(int playerScore)
         {
-            float width = Mathf.Lerp(120f, 40f, playerScore / 100f);
-            perfectZone.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, width);
+            float t = Mathf.Clamp01(playerScore / 100f);
+            float height = Mathf.Lerp(120f, 40f, t);
+
+            perfectZone.SetSizeWithCurrentAnchors(
+                RectTransform.Axis.Vertical,
+                height
+            );
         }
     }
 }
