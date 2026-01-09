@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 238532638}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.88, z: 0}
+  m_LocalPosition: {x: 0, y: 0.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -372,8 +372,8 @@ Transform:
   m_GameObject: {fileID: 288151338}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11266768, y: -2.23, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0105, y: -2.3096, z: 0}
+  m_LocalScale: {x: 0.8863057, y: 0.8863057, z: 0.8863057}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1078,8 +1078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45700b65f684aeabf4b17d2b654d760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Minigames.ShotGrab.Player.HandController
-  minY: -1
-  maxY: 1
+  minY: -1.5
+  maxY: 0
   lanes:
   - {fileID: 1591846510}
   - {fileID: 1438627081}
@@ -1222,7 +1222,7 @@ Transform:
   m_GameObject: {fileID: 1438627080}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1345,7 +1345,7 @@ Transform:
   m_GameObject: {fileID: 1591846509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.84, z: 0}
+  m_LocalPosition: {x: 0, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1691,8 +1691,8 @@ Transform:
   m_GameObject: {fileID: 2001477531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 1.65, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0013, y: 0.97, z: 0}
+  m_LocalScale: {x: 0.8785, y: 0.8785, z: 0.8785}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1764,7 +1764,7 @@ MonoBehaviour:
   - {fileID: 1438627081}
   - {fileID: 238532639}
   shotSpeed: 5
-  spawnCooldown: 1.5
+  spawnCooldown: 1
   spawnFromRight: 1
 --- !u!114 &2112054319
 MonoBehaviour:
