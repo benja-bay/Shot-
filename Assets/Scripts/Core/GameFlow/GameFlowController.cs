@@ -6,8 +6,10 @@ using UnityEngine;
 
 namespace Core.GameFlow
 {
+    // Main controller that manages the game flow and state transitions
     public class GameFlowController : MonoBehaviour
     {
+        // Possible game states
         private enum GameState
         {
             Lobby,
@@ -15,6 +17,10 @@ namespace Core.GameFlow
             Transition,
             Skillbar
         }
+
+        /* =========================
+         * REFERENCES
+         * ========================= */
 
         [Header("Lobby")]
         [SerializeField] private LobbyController lobby;
@@ -26,9 +32,11 @@ namespace Core.GameFlow
         [Header("Transition")]
         [SerializeField] private float delayBeforeSkillbar = 1.5f;
 
+        // Current state and score
         private GameState currentState;
         private int currentScore;
-
+        
+        // Subscribe to events
         private void Awake()
         {
             shotGrabGame.OnShotGrabbed += HandleShotGrabbed;
@@ -36,11 +44,13 @@ namespace Core.GameFlow
             lobby.OnPlayPressed += HandlePlayPressed;
         }
 
+        // Start the game in the lobby state
         private void Start()
         {
             EnterLobby();
         }
 
+        // Unsubscribe from events
         private void OnDestroy()
         {
             shotGrabGame.OnShotGrabbed -= HandleShotGrabbed;
@@ -48,13 +58,12 @@ namespace Core.GameFlow
             lobby.OnPlayPressed -= HandlePlayPressed;
         }
 
-        /* =========================
-         * LOBBY
-         * ========================= */
+        // ========================= LOBBY STATE =========================
+
+        // Initializes the lobby state
         private void EnterLobby()
         {
             currentState = GameState.Lobby;
-
             currentScore = 0;
 
             lobby.Show();
@@ -63,6 +72,7 @@ namespace Core.GameFlow
             skillbarGame.gameObject.SetActive(false);
         }
 
+        // Called when the player presses Play
         private void HandlePlayPressed()
         {
             if (currentState != GameState.Lobby)
@@ -72,9 +82,9 @@ namespace Core.GameFlow
             EnterShotGrab();
         }
 
-        /* =========================
-         * SHOT GRAB
-         * ========================= */
+        // ========================= SHOT GRAB STATE =========================
+
+        // Starts the ShotGrab minigame
         private void EnterShotGrab()
         {
             currentState = GameState.ShotGrab;
@@ -87,6 +97,7 @@ namespace Core.GameFlow
             shotGrabGame.StartGame();
         }
 
+        // Called when a shot is successfully grabbed
         private void HandleShotGrabbed()
         {
             if (currentState != GameState.ShotGrab)
@@ -95,9 +106,9 @@ namespace Core.GameFlow
             StartCoroutine(TransitionToSkillbar());
         }
 
-        /* =========================
-         * TRANSITION
-         * ========================= */
+        // ========================= TRANSITION STATE =========================
+
+        // Short delay before switching to the Skillbar minigame
         private IEnumerator TransitionToSkillbar()
         {
             currentState = GameState.Transition;
@@ -108,9 +119,9 @@ namespace Core.GameFlow
             EnterSkillbar();
         }
 
-        /* =========================
-         * SKILLBAR
-         * ========================= */
+        // ========================= SKILLBAR STATE =========================
+
+        // Starts the Skillbar minigame
         private void EnterSkillbar()
         {
             currentState = GameState.Skillbar;
@@ -121,12 +132,14 @@ namespace Core.GameFlow
             skillbarGame.StartGame(currentScore);
         }
 
+        // Called when the Skillbar minigame ends
         private void HandleSkillbarFinished(SkillbarResult result)
         {
             ApplySkillbarResult(result);
             EnterShotGrab();
         }
 
+        // Applies score changes based on the Skillbar result
         private void ApplySkillbarResult(SkillbarResult result)
         {
             switch (result)
@@ -144,7 +157,7 @@ namespace Core.GameFlow
                     break;
             }
 
-            Debug.Log($"Score actual: {currentScore}");
+            Debug.Log($"Current score: {currentScore}");
         }
     }
 }
